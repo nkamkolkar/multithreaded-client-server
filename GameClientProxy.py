@@ -58,7 +58,7 @@ class ClientProxy:
 		message = json.dumps(message).encode('utf-8')
 		print(f"client_send.message: {message} + message.type : {type(message)}\n")
 		try:
-			self.sock.send(message)
+			self.sock.sendall(message)
 		except Exception as e:
 			raise e
 		#pdebug("client_send.response_from_server: %s\n" % response)

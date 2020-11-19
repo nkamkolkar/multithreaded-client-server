@@ -52,7 +52,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 			#process server command handles the bytes to dict conversions
 			response = self.server.process_server_commands(data)
 			threadLock.release()
-			self.request.send(response)
+			self.request.sendall(response)
 
 
 
@@ -87,7 +87,7 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 				#client can verify with it's own copy or ignore
 				a_dict['client_address'] = address
 				msg = json.dumps(a_dict).encode('utf-8')
-				client.send(msg)
+				client.sendall(msg)
 			except Exception as e:
 				#This client died or closed connection, remove the client socket from list
 				#and decrement reference count
